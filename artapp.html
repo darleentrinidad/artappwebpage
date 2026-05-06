@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>lin draft</title>
+
+<!-- LINK TO YOUR CSS FILE -->
+<link rel="stylesheet" href="artapp.css">
+</head>
+
+<!-- =========================
+     FOOTER
+     - Always stays at bottom
+========================= -->
+<div class="footer">
+    <p>ArtApp 10 B • Trinidad, Padre</p>
+</div>
+
+<body>
+
+<!-- =========================
+     FAKE OS TOP BAR
+     - Contains controls (music, moon, splash, game)
+     - Clock on the right
+========================= -->
+<div class="top-bar">
+
+    <span>🖥 ArtApp</span>
+
+    <div class="controls">
+
+        <!-- MUSIC TOGGLE BUTTON -->
+        <button onclick="toggleMusic(); playClick();">🎧</button>
+
+        <!-- MOON ANIMATION -->
+        <button onclick="spawnMoon(); playClick();">🌙</button>
+
+        <!-- SPLASH EFFECT -->
+        <button onclick="paintSplash(); playClick();">🎨</button>
+
+        <!-- MINI GAME OPEN -->
+        <button onclick="openMiniGame(); playClick();">🎮</button>
+
+    </div>
+
+    <!-- REAL TIME CLOCK -->
+    <div id="clock"></div>
+
+</div>
+
+<!-- =========================
+     MAIN SEARCH UI
+========================= -->
+<div class="main">
+
+    <h1 class="logo">Find Legoland</h1>
+
+    <!-- SEARCH INPUT BOX -->
+    <div class="search-box">
+
+        <!-- 
+        USER TYPES HERE
+        - Enter key triggers search
+        -->
+        <input 
+            type="text"
+            id="searchInput"
+            placeholder="Search..."
+            onkeydown="handleKey(event)"
+            autocomplete="off"
+        >
+
+        <!-- (optional) future autocomplete suggestions -->
+        <div id="suggestions" class="suggestions"></div>
+
+    </div>
+
+    <!-- BUTTON ACTIONS -->
+    <div class="buttons">
+
+        <!-- NORMAL SEARCH -->
+        <button onclick="redirectToGame(); playClick();">Search</button>
+
+        <!-- RANDOM FUN REDIRECT -->
+        <button onclick="feelingLucky(); playClick();">I'm Feeling Lucky</button>
+
+        <!-- RANDOM YOUTUBE MODE -->
+        <button onclick="randomRedirect(); playClick();">🎲 Fun Mode</button>
+
+    </div>
+
+    <!-- ERROR MESSAGE DISPLAY -->
+    <p id="errorMessage"></p>
+
+</div>
+
+<!-- =========================
+     MINI GAME WINDOW (FAKE OS APP)
+========================= -->
+<div id="miniGameWindow" class="window hidden">
+
+    <!-- GAME TITLE -->
+    <h2>Mini Click Game</h2>
+
+    <!-- ⏱ TIMER DISPLAY -->
+    <p id="timer">Time: 5</p>
+
+    <p>Click the circle!</p>
+
+    <!-- CLICK TARGET -->
+    <div id="circle" onclick="scorePoint()"></div>
+
+    <!-- SCORE DISPLAY -->
+    <p>Score: <span id="score">0</span></p>
+
+    <!-- CLOSE GAME -->
+    <button onclick="closeMiniGame()">Close</button>
+
+</div>
+
+<!-- =========================
+     AUDIO FILES
+========================= -->
+
+<!-- BACKGROUND MUSIC -->
+<audio id="bgMusic" loop>
+    <source src="music.mp3">
+</audio>
+
+<!-- CLICK SOUND EFFECT -->
+<audio id="clickSound">
+    <source src="click.mp3">
+</audio>
+
+<!-- =========================
+     PARTICLE CANVAS BACKGROUND
+========================= -->
+<canvas id="particles"></canvas>
+
+<script>
+
+/* =========================
+   LINKS SECTION
+========================= */
+
+// Fun Mode → YouTube video
+const funModeLink =
+"https://youtu.be/xbviQHhU1rA?si=FZhWVO_vKgt5JZBC";
+
+// Lucky Mode → YouTube video
+const luckyLink =
+"https://media1.tenor.com/m/_dKNY1rfN6IAAAAd/sana-all-ntc.gif";
+
+/* =========================
+   GAME SETTINGS
+========================= */
+
+// NORMAL SEARCH KEYWORDS
+const keywords = ["game", "legoland", "memories"];
+
+// PLACEHOLDER FOR YOUR REAL GAME LINK
+// PUT YOUR GAME LINK HERE LATER
+const gameLink = "https://noelleski39.itch.io/legoland";
+
+// SECRET PHRASE TRIGGER (case-insensitive handled below)
+const secretPhrase = "memories in legoland";
+
+
+/* =========================
+   CLICK SOUND FUNCTION
+========================= */
+function playClick(){
+    document.getElementById("clickSound").play();
+}
+
+
+/* =========================
+   MUSIC TOGGLE
+========================= */
+function toggleMusic(){
+    const music = document.getElementById("bgMusic");
+
+    if(music.paused){
+        music.play();
+    } else {
+        music.pause();
+    }
+}
+
+
+/* =========================
+   MOON ANIMATION (CENTER POP)
+========================= */
+function spawnMoon(){
+
+    const moon = document.createElement("div");
+
+    // CSS handles animation
+    moon.className = "moon-center";
+
+    document.body.appendChild(moon);
+
+    // remove after animation ends
+    setTimeout(()=>moon.remove(),4000);
+}
+
+
+/* =========================
+   SPLASH EFFECT
+========================= */
+function paintSplash(){
+
+    const splash = document.createElement("div");
+
+    splash.className = "paint";
+
+    // random color splash
+    splash.style.background = `hsl(${Math.random()*360},100%,50%)`;
+
+    document.body.appendChild(splash);
+
+    setTimeout(()=>splash.remove(),1200);
+}
+
+
+/* =========================
+   SEARCH FUNCTION
+========================= */
+function redirectToGame(){
+
+    const input = document.getElementById("searchInput");
+    const value = input.value.toLowerCase();
+
+    // SECRET GAME TRIGGER
+    if(value === secretPhrase){
+        window.location.href = gameLink;
+        return;
+    }
+
+    // normal keyword match
+    if(keywords.includes(value)){
+        window.location.href = gameLink;
+    } else {
+        document.getElementById("errorMessage").innerText =
+        "Game not found. Try searching Memories in Legoland.";
+    }
+}
+
+
+/* =========================
+   ENTER KEY SUPPORT
+========================= */
+function handleKey(e){
+    if(e.key === "Enter"){
+        redirectToGame();
+    }
+}
+
+
+/* =========================
+   FUN MODE (RANDOM VIDEO)
+========================= */
+function randomRedirect(){
+    window.location.href = funModeLink;
+}
+
+
+/* =========================
+   FEELING LUCKY
+========================= */
+function feelingLucky(){
+    window.location.href = luckyLink;
+}
+
+
+/* =========================
+   MINI GAME SYSTEM
+========================= */
+
+// game state variables
+let score = 0;
+let timeLeft = 5;
+let timerInterval;
+
+
+/* OPEN MINI GAME */
+function openMiniGame(){
+
+    document.getElementById("miniGameWindow")
+    .classList.remove("hidden");
+
+    // reset values
+    score = 0;
+    timeLeft = 5;
+
+    document.getElementById("score").innerText = score;
+    document.getElementById("timer").innerText = "Time: 5";
+
+    startTimer();
+}
+
+
+/* CLOSE MINI GAME */
+function closeMiniGame(){
+
+    document.getElementById("miniGameWindow")
+    .classList.add("hidden");
+
+    clearInterval(timerInterval);
+}
+
+
+/* SCORE CLICK */
+function scorePoint(){
+
+    if(timeLeft > 0){
+        score++;
+        document.getElementById("score").innerText = score;
+    }
+}
+
+
+/* TIMER SYSTEM */
+function startTimer(){
+
+    clearInterval(timerInterval);
+
+    timerInterval = setInterval(()=>{
+
+        timeLeft--;
+
+        document.getElementById("timer")
+        .innerText = "Time: " + timeLeft;
+
+        if(timeLeft <= 0){
+
+            clearInterval(timerInterval);
+
+            alert("Game Over! Score: " + score);
+        }
+
+    },1000);
+}
+
+
+/* =========================
+   CLOCK SYSTEM
+========================= */
+setInterval(()=>{
+
+    document.getElementById("clock")
+    .innerText = new Date().toLocaleTimeString();
+
+},1000);
+
+
+/* =========================
+   PARTICLES BACKGROUND
+========================= */
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+for(let i=0;i<60;i++){
+    particles.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        r:Math.random()*2
+    });
+}
+
+function animate(){
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    particles.forEach(p=>{
+
+        p.y += 0.5;
+
+        if(p.y > canvas.height) p.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle = "white";
+        ctx.fill();
+    });
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+</script>
+
+</body>
+</html>
