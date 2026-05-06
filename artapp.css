@@ -1,0 +1,367 @@
+/* ROOT COLORS */
+:root{
+    --accent:#ffffff;
+}
+
+/* RESET */
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    color:white;
+    overflow:hidden;
+
+    /* 🌄 YOUR BACKGROUND IMAGE */
+    background: url("image.png") no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* 🌙 LIGHT MODE */
+body.light-mode{
+    color:black;
+    background: url("image.png") no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* 🌑 DARK OVERLAY (makes text readable) */
+body::before{
+    content:"";
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+    z-index:0;
+}
+
+/* ✨ PARTICLES CANVAS */
+#particles{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:1; /* ABOVE background, BELOW content */
+    pointer-events:none;
+}
+
+/* TOP BAR */
+.top-bar{
+    position:relative;
+    z-index:2;
+    display:flex;
+    justify-content:space-between;
+    padding:10px 20px;
+}
+
+/* CONTROL BUTTONS */
+.controls button{
+    margin:0 5px;
+    padding:5px 10px;
+    border-radius:10px;
+    border:none;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.controls button:hover{
+    transform:scale(1.1);
+}
+
+/* MAIN CONTENT */
+.main{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    margin-top:10%;
+}
+
+/* LOGO */
+.logo{
+    font-size:70px;
+    margin-bottom:20px;
+}
+
+/* SEARCH INPUT */
+input{
+    width:400px;
+    padding:15px;
+    border-radius:30px;
+    border:none;
+    outline:none;
+    font-size:16px;
+
+    transition:0.3s;
+}
+
+input:focus{
+    box-shadow:0 0 10px white;
+}
+
+/* BUTTONS */
+button{
+    margin:10px;
+    padding:10px 20px;
+    border-radius:20px;
+    border:none;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.1);
+}
+
+/* SUGGESTIONS DROPDOWN */
+.suggestions{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    background:white;
+    color:black;
+    width:400px;
+    border-radius:10px;
+    margin-top:5px;
+    overflow:hidden;
+}
+
+.suggestions div{
+    padding:10px;
+    cursor:pointer;
+}
+
+.suggestions div:hover{
+    background:#ddd;
+}
+
+/* ERROR MESSAGE */
+#errorMessage{
+    color:red;
+    margin-top:10px;
+}
+
+/* SHAKE ANIMATION */
+.shake{
+    animation:shake 0.3s;
+}
+
+@keyframes shake{
+    0%{transform:translateX(0);}
+    25%{transform:translateX(-5px);}
+    50%{transform:translateX(5px);}
+    75%{transform:translateX(-5px);}
+    100%{transform:translateX(0);}
+}
+
+/* 🎉 CONFETTI */
+.confetti{
+    position:fixed;
+    top:0;
+    width:6px;
+    height:12px;
+    z-index:3;
+    animation:fall 2s linear;
+}
+
+@keyframes fall{
+    to{transform:translateY(100vh);}
+}
+
+/* FOOTER */
+.footer{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    text-align:center;
+    padding:10px;
+    font-size:12px;
+    z-index:2;
+}
+
+/* 🎧 MUSIC PULSE */
+.music-pulse{
+    position:fixed;
+    top:50%;
+    left:50%;
+    width:200px;
+    height:200px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.2);
+    transform:translate(-50%,-50%);
+    animation:pulse 1.5s;
+    z-index:3;
+}
+
+@keyframes pulse{
+    from{transform:translate(-50%,-50%) scale(0);}
+    to{transform:translate(-50%,-50%) scale(2);opacity:0;}
+}
+
+/* 🌙 MOON */
+.moon{
+    position:fixed;
+    bottom:0;
+    right:20px;
+    width:100px;
+    height:100px;
+    background:radial-gradient(circle,#fff,#ccc);
+    border-radius:50%;
+    animation:rise 4s linear;
+    z-index:3;
+}
+
+@keyframes rise{
+    from{bottom:0;}
+    to{bottom:80vh;opacity:0;}
+}
+
+/* 🎨 PAINT SPLASH */
+.paint{
+    position:fixed;
+    width:200px;
+    height:200px;
+    border-radius:50%;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%) scale(0);
+    animation:splash 1s ease-out;
+    z-index:3;
+}
+
+@keyframes splash{
+    to{
+        transform:translate(-50%,-50%) scale(5);
+        opacity:0;
+    }
+}
+
+/* 🌙 CENTER MOON */
+.moon-center{
+    position:fixed;
+    top:50%;
+    left:50%;
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:radial-gradient(circle,#fff,#ccc);
+    transform:translate(-50%,-50%);
+    animation:moonRise 2s ease-out;
+    z-index:999;
+}
+
+@keyframes moonRise{
+    from{opacity:0; transform:translate(-50%,-50%) scale(0);}
+    to{opacity:1; transform:translate(-50%,-50%) scale(1.5);}
+}
+
+/* 🎨 SPLASH IMPROVED */
+.paint{
+    position:fixed;
+    width:250px;
+    height:250px;
+    border-radius:50%;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    animation:splash 1.2s ease-out;
+    z-index:999;
+}
+
+/* 🪟 MINI GAME WINDOW */
+.window{
+    position:fixed;
+    top:20%;
+    left:35%;
+    width:300px;
+    background:white;
+    color:black;
+    padding:20px;
+    border-radius:10px;
+    z-index:999;
+}
+
+.hidden{
+    display:none;
+}
+
+#circle{
+    width:60px;
+    height:60px;
+    background:red;
+    border-radius:50%;
+    margin:20px auto;
+    cursor:pointer;
+}
+
+.footer{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    text-align:center;
+    padding:10px;
+    font-size:12px;
+    z-index:2;
+}
+
+
+/* 🌙 CENTER MOON ANIMATION */
+.moon-center{
+    position:fixed;
+    top:50%;
+    left:50%;
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:radial-gradient(circle,#fff,#ccc);
+    transform:translate(-50%,-50%);
+    animation:moonRise 2s ease-out;
+    z-index:999;
+}
+
+@keyframes moonRise{
+    from{opacity:0; transform:translate(-50%,-50%) scale(0);}
+    to{opacity:1; transform:translate(-50%,-50%) scale(1.5);}
+}
+
+
+/* 🎨 SPLASH EFFECT */
+.paint{
+    position:fixed;
+    width:250px;
+    height:250px;
+    border-radius:50%;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    animation:splash 1.2s ease-out;
+    z-index:999;
+}
+
+
+/* 🎮 MINI GAME WINDOW */
+.window{
+    position:fixed;
+    top:20%;
+    left:35%;
+    width:300px;
+    background:white;
+    color:black;
+    padding:20px;
+    border-radius:10px;
+    z-index:999;
+}
+
+.hidden{
+    display:none;
+}
+
+
+/* 🎯 CLICK CIRCLE */
+#circle{
+    width:60px;
+    height:60px;
+    background:red;
+    border-radius:50%;
+    margin:20px auto;
+    cursor:pointer;
+}
